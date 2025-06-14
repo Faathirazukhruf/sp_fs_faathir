@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sellerpintar Fullstack Test – Multi-User Project Management App
 
-## Getting Started
+A fullstack project management web app built with Next.js App Router, allowing users to create projects, invite members, and manage tasks collaboratively.
 
-First, run the development server:
+## 🚀 Features
+
+- User Authentication with NextAuth.js (credentials)
+- Create / delete projects
+- Invite members by email
+- Project dashboard
+- Task management (create, delete tasks)
+- Protected routes with middleware
+- Responsive UI with TailwindCSS + shadcn
+
+## 🧪 Tech Stack
+
+- Next.js 15 App Router (Frontend & Backend API Routes)
+- TypeScript
+- TailwindCSS + shadcn/ui
+- Prisma ORM
+- PostgreSQL (via Supabase)
+- NextAuth.js (credentials provider)
+- Deployed on Vercel
+
+## 🧭 Folder Structure
+
+```
+
+src/
+├── app/               → Pages & API Routes
+│   ├── dashboard/     → Project dashboard
+│   ├── login/         → Login page
+│   ├── register/      → Register page
+│   ├── projects/      → Project board & settings
+│   └── api/           → Backend routes (auth, register, projects, tasks)
+├── lib/               → Prisma client & NextAuth config
+├── prisma/            → Prisma schema
+└── .env.example       → Environment variable format
+
+````
+
+## ⚙️ How to Run Locally
+
+1. Clone the repo
+2. Install dependencies
+
+```bash
+npm install
+````
+
+3. Create `.env` file based on `.env.example`
+
+4. Push Prisma schema to your PostgreSQL:
+
+```bash
+npx prisma db push
+```
+
+5. Run the dev server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit `http://localhost:3000`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🔐 Credentials
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+You can register new users at `/register`, then login via `/login`.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Made with 💻 by [Faathir Azukhruf](https://github.com/Faathirazukhruf)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+````
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
