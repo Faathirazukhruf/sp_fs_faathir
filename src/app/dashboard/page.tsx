@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
-import { Loader2, Plus, LogOut, ArrowLeft, Settings, Trash2, Eye } from "lucide-react";
+import { Loader2, Plus, LogOut, Settings, Trash2, Eye } from "lucide-react";
 
 type Project = {
   id: string;
