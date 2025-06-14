@@ -4,13 +4,14 @@ import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
+// No unused imports needed
 
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [loginError, setLoginError] = useState("");
   
   // Get callback URL from query params
   const searchParams = useSearchParams();
@@ -19,7 +20,7 @@ export default function LoginPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setError("");
+    setLoginError("");
     
     try {
       const res = await signIn("credentials", {
@@ -29,12 +30,12 @@ export default function LoginPage() {
       });
 
       if (res?.error) {
-        setError("Email atau password salah");
+        setLoginError("Email atau password salah");
       } else {
         router.push(callbackUrl);
       }
-    } catch (error) {
-      setError("Terjadi kesalahan. Silakan coba lagi.");
+    } catch (err) {
+      setLoginError("Terjadi kesalahan. Silakan coba lagi.");
     } finally {
       setIsLoading(false);
     }
@@ -49,9 +50,9 @@ export default function LoginPage() {
             <p className="text-gray-600 mt-2">Masuk ke Akun Anda</p>
           </div>
           
-          {error && (
-            <div className="mb-6 p-3 bg-red-50 text-red-700 rounded-lg text-sm">
-              {error}
+          {loginError && (
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+              {loginError}
             </div>
           )}
           

@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Plus, Trash2, Loader2 } from "lucide-react";
 import { BackButton } from "@/components/ui/back-button";
@@ -21,7 +21,7 @@ type Project = {
 };
 
 export default function ProjectDetailPage() {
-  const router = useRouter();
+
   const { id } = useParams();
   const [tasks, setTasks] = useState<Task[]>([]);
   const [title, setTitle] = useState("");

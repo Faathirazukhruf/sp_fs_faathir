@@ -13,7 +13,7 @@ type Project = {
 
 export default function DashboardPage() {
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const [projects, setProjects] = useState<Project[]>([]);
   const [title, setTitle] = useState("");
   const [isLoading, setIsLoading] = useState(true);

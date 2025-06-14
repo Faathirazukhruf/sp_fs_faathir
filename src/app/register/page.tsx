@@ -30,7 +30,7 @@ export default function RegisterPage() {
         const data = await res.json();
         setError(data.message || "Gagal melakukan pendaftaran. Silakan coba lagi.");
       }
-    } catch (error) {
+    } catch (err) {
       setError("Terjadi kesalahan. Silakan coba lagi nanti.");
     } finally {
       setIsLoading(false);
