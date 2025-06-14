@@ -1,14 +1,18 @@
+import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { getServerSession } from "next-auth";
-import { NextResponse } from "next/server";
 
-export async function POST(req: Request, context: { params: { id: string } }) {
+export async function POST(
+  req: NextRequest,
+  context: { params: { id: string } }
+) {
+  const { id } = context.params;
+
   const session = await getServerSession(authOptions);
-  const userId = session?.user?.id;
-  const projectId = context.params.id;
-
-  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!session?.user?.id) {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
 
   const { email } = await req.json();
 
@@ -18,27 +22,23 @@ export async function POST(req: Request, context: { params: { id: string } }) {
   }
 
   const isAlreadyMember = await db.member.findFirst({
-    where: {
-      projectId,
-      userId: userToInvite.id,
-    },
+    where: { projectId: id, userId: userToInvite.id },
   });
 
   if (isAlreadyMember) {
-    return NextResponse.json({ message: "User already a member" }, { status: 400 });
+    return NextResponse.json({ message: "Already a member" }, { status: 400 });
   }
 
-  const project = await db.project.findUnique({ where: { id: projectId } });
-  if (!project || project.ownerId !== userId) {
+  const project = await db.project.findUnique({ where: { id } });
+
+  if (!project || project.ownerId !== session.user.id) {
     return NextResponse.json({ message: "Forbidden" }, { status: 403 });
   }
 
   await db.member.create({
-    data: {
-      userId: userToInvite.id,
-      projectId,
-    },
+    data: { userId: userToInvite.id, projectId: id },
   });
 
-  return NextResponse.json({ message: "User invited" }, { status: 200 });
+  return NextResponse.json({ message: "Invited" }, { status: 200 });
 }
+
